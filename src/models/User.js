@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
-    // sub: { type: String, required: true, unique: true }, // ID de Auth0
+    sub: { type: String, required: true, unique: true },
     name: String,
     email: String,
+    imageUrl: String,
   },
   { timestamps: true }
 );
