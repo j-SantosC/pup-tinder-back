@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema(
     sub: { type: String, required: true, unique: true },
     name: String,
     email: String,
+    bio: String,
     imageUrl: String,
     dogs: [dogSchema],
   },

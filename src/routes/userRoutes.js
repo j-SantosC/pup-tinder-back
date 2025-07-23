@@ -10,12 +10,14 @@ const {
   addDog,
   getUserDogs,
   deleteDog,
+  updateUser,
 } = require("../controllers/userController");
 
 router.get("/", getAllUsers);
 router.get("/:id", getUserById);
 
 router.get("/auth/profile", jwtCheck, getUserBySub);
+router.put("/:id", jwtCheck, updateUser);
 router.post("/:id/image", upload.single("image"), uploadUserImage);
 
 // New dog routes

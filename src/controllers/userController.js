@@ -43,6 +43,27 @@ const getUserBySub = async (req, res, next) => {
   }
 };
 
+const updateUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, bio } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      id,
+      { name, bio },
+      { new: true, runValidators: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const uploadUserImage = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -174,4 +195,5 @@ module.exports = {
   addDog,
   getUserDogs,
   deleteDog,
+  updateUser,
 };
