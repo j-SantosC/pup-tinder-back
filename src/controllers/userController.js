@@ -46,11 +46,11 @@ const getUserBySub = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { name, bio } = req.body;
+    const { name, bio, city } = req.body;
 
     const user = await User.findByIdAndUpdate(
       id,
-      { name, bio },
+      { name, bio, city },
       { new: true, runValidators: true }
     );
 
