@@ -2,6 +2,28 @@ const User = require("../models/User.js");
 const cloudinary = require("../../cloudinary.js"); // ajusta la ruta según tu estructura
 const streamifier = require("streamifier");
 
+const createUser = async (req, res, next) => {
+  try {
+    const { sub } = req.auth;
+    const { email } = req.body;
+
+    const existingUser = await User.findOne({ sub });
+    if (existingUser) {
+      return res.status(409).json({ error: "Usuario ya existe" });
+    }
+
+    const newUser = new User({
+      sub,
+      email,
+    });
+
+    await newUser.save();
+    res.status(201).json(newUser);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find();
@@ -196,4 +218,5 @@ module.exports = {
   getUserDogs,
   deleteDog,
   updateUser,
+  createUser,
 };

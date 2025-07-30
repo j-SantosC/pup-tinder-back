@@ -31,6 +31,7 @@ const userSchema = new mongoose.Schema(
     bio: String,
     imageUrl: String,
     dogs: [dogSchema],
+    seenDogs: [String],
   },
   { timestamps: true }
 );

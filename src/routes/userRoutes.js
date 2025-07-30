@@ -11,21 +11,24 @@ const {
   getUserDogs,
   deleteDog,
   updateUser,
+  createUser,
 } = require("../controllers/userController");
-const { getDogsForMatching } = require("../controllers/matchController");
+const {
+  getDogsForMatching,
+  markDogAsSeen,
+} = require("../controllers/matchController");
 
 router.get("/", getAllUsers);
 
-//Auth - DEBE IR ANTES DE /:id
 router.get("/auth/profile", jwtCheck, getUserBySub);
 
-//Match routes - DEBE IR ANTES DE /:id
 router.get("/match", jwtCheck, getDogsForMatching);
+router.post("/seen", jwtCheck, markDogAsSeen);
 
-// Esta ruta con parámetro DEBE IR AL FINAL
 router.get("/:id", getUserById);
 
 //User
+router.post("/", jwtCheck, createUser);
 router.put("/:id", jwtCheck, updateUser);
 router.post("/:id/image", upload.single("image"), uploadUserImage);
 
